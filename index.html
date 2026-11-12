@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>广东 99 个本科去处 · 按市查</title>
+<style>
+  :root {
+    --bg1: #1e2e50; --bg2: #0d162a;
+    --gold: #ffce7e; --text: #f6f9ff; --sub: #c4d2ea; --dim: #8fa2c4;
+    --pub: #68d6ca; --pri: #ff9280; --hk: #b2a0ff; --cam: #6eb0ff;
+    --card: rgba(26, 42, 72, .82); --line: rgba(255, 206, 126, .35);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(175deg, var(--bg1) 0%, var(--bg2) 78%);
+    background-attachment: fixed; color: var(--text); min-height: 100vh;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 0 16px 60px; }
+  header { padding: 22px 4px 8px; }
+  .kicker { color: var(--gold); font-size: 12px; letter-spacing: 2px; font-weight: 600; }
+  h1 { font-size: 27px; margin-top: 7px; line-height: 1.22; }
+  h1 em { font-style: normal; color: var(--gold); }
+  .sub { color: var(--sub); font-size: 13px; margin-top: 6px; }
+  .stats { display: flex; gap: 10px; margin: 12px 0 4px; }
+  .stat {
+    flex: 1; background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 8px 0 7px; text-align: center;
+  }
+  .stat b { font-size: 21px; font-weight: 700; display: block; }
+  .stat span { font-size: 11px; color: var(--dim); }
+  .searchbox { position: sticky; top: 0; z-index: 10; padding: 10px 0 8px;
+    background: linear-gradient(180deg, rgba(13,22,42,.96) 70%, transparent); }
+  input[type=search] {
+    width: 100%; padding: 11px 16px; font-size: 16px; color: var(--text);
+    background: rgba(30, 46, 78, .92); border: 1px solid var(--line);
+    border-radius: 13px; outline: none;
+  }
+  input[type=search]::placeholder { color: var(--dim); }
+  .chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 0 6px; }
+  #typeChips { flex-wrap: nowrap; }
+  #typeChips .chip { padding: 6px 12px; font-size: 12.5px; flex-shrink: 0; }
+  .row-label { font-size: 11px; color: var(--dim); margin-right: 2px; flex-shrink: 0; }
+  .chips.cities { margin-top: 10px; padding-top: 10px; border-top: 1px dashed rgba(143,162,196,.25); }
+  .chip {
+    padding: 7px 14px; font-size: 13px; color: var(--sub);
+    background: rgba(30, 46, 78, .7); border: 1px solid rgba(143,162,196,.3);
+    border-radius: 20px; cursor: pointer; user-select: none; transition: .15s;
+  }
+  .chip.on { color: #12203a; background: var(--gold); border-color: var(--gold); font-weight: 600; }
+  .chip.c-p.on { background: var(--pub); border-color: var(--pub); }
+  .chip.c-m.on { background: var(--pri); border-color: var(--pri); }
+  .chip.c-h.on { background: var(--hk); border-color: var(--hk); }
+  .chip.c-c.on { background: var(--cam); border-color: var(--cam); }
+  .cityhead {
+    display: flex; align-items: baseline; gap: 10px;
+    margin: 22px 4px 10px;
+  }
+  .cityhead h2 { font-size: 21px; }
+  .cityhead span { font-size: 12px; color: var(--dim); }
+  .cityhead b { margin-left: auto; color: var(--gold); font-size: 15px; }
+  .card {
+    background: var(--card); border: 1px solid rgba(143,162,196,.18);
+    border-radius: 14px; margin-bottom: 8px; padding: 13px 15px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .card .name { font-size: 16.5px; flex: 1; line-height: 1.35; }
+  .badge {
+    font-size: 12px; padding: 3px 9px; border-radius: 7px; white-space: nowrap;
+    border: 1px solid; flex-shrink: 0;
+  }
+  .b-p { color: var(--pub); border-color: rgba(104,214,202,.5); background: rgba(104,214,202,.1); }
+  .b-m { color: var(--pri); border-color: rgba(255,146,128,.5); background: rgba(255,146,128,.1); }
+  .b-h { color: var(--hk); border-color: rgba(178,160,255,.5); background: rgba(178,160,255,.1); }
+  .b-c { color: var(--cam); border-color: rgba(110,176,255,.5); background: rgba(110,176,255,.1); }
+  .empty { text-align: center; color: var(--dim); padding: 60px 0; font-size: 15px; }
+  footer { color: var(--dim); font-size: 12px; line-height: 1.8; margin-top: 34px;
+    border-top: 1px solid rgba(143,162,196,.2); padding-top: 16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">广东 · 本科去处全清单</div>
+    <h1>广东 <em>99</em> 个本科去处</h1>
+    <div class="sub">21 个市全覆盖 · 按城市、性质筛选，支持搜索校名</div>
+    <div class="stats">
+      <div class="stat"><b style="color:var(--gold)">99</b><span>个去处</span></div>
+      <div class="stat"><b style="color:var(--pub)">72</b><span>所独立设置</span></div>
+      <div class="stat"><b style="color:var(--cam)">27</b><span>个名校校区</span></div>
+    </div>
+  </header>
+
+  <div class="searchbox">
+    <input id="q" type="search" placeholder="搜校名，如：珠海、中大、香港…" autocomplete="off">
+    <div class="chips" id="typeChips">
+      <span class="row-label">性质</span>
+      <div class="chip on" data-t="all">全部</div>
+      <div class="chip c-p" data-t="P">公办</div>
+      <div class="chip c-m" data-t="M">民办</div>
+      <div class="chip c-h" data-t="H">合作</div>
+      <div class="chip c-c" data-t="C">校区</div>
+    </div>
+    <div class="chips cities" id="cityChips"><span class="row-label">城市</span></div>
+  </div>
+
+  <div id="list"></div>
+  <div class="empty" id="empty" style="display:none">没有匹配的学校，换个关键词试试</div>
+
+  <footer>
+    ＊数据据教育部 2025 年全国高校名单及各地市教育局公布信息整理；具体以当年招生专业目录及招生章程为准。<br>
+    ＊珠海：北师珠分校已停办，北理珠已迁江门转设为广东江门南粤学院。<br>
+    ＊「校区」指名校在粤设立的异地校区，不单独计入独立设置高校。<br>
+    珠海生涯规划 · 高考志愿与选科
+  </footer>
+</div>
+
+<script>
+const DATA = [
+  ["广州", "省会", [
+    ["中山大学","P"],["暨南大学","P"],["华南理工大学","P"],["华南农业大学","P"],
+    ["广州医科大学","P"],["广州中医药大学","P"],["广东药科大学","P"],
+    ["华南师范大学","P"],["广州体育学院","P"],["广州美术学院","P"],
+    ["星海音乐学院","P"],["广东技术师范大学","P"],["广东财经大学","P"],
+    ["广州大学","P"],["广州航海学院","P"],["广东警官学院","P"],
+    ["仲恺农业工程学院","P"],["广东金融学院","P"],["广东工业大学","P"],
+    ["广东外语外贸大学","P"],["南方医科大学","P"],["广东第二师范学院","P"],
+    ["广东轻工职业技术大学","P"],
+    ["广东白云学院","M"],["广东培正学院","M"],["广州城市理工学院","M"],
+    ["广州软件学院","M"],["广州南方学院","M"],["广东外语外贸大学南国商学院","M"],
+    ["广州华商学院","M"],["华南农业大学珠江学院","M"],["广州理工学院","M"],
+    ["广州华立学院","M"],["广州应用科技学院","M"],["广州商学院","M"],
+    ["广州工商学院","M"],["广州科技职业技术大学","M"],["广州新华学院","M"],
+    ["香港科技大学（广州）","H"]
+  ]],
+  ["深圳", "3 个校区", [
+    ["深圳大学","P"],["南方科技大学","P"],["深圳技术大学","P"],
+    ["深圳职业技术大学","P"],["深圳理工大学","P"],
+    ["香港中文大学（深圳）","H"],["深圳北理莫斯科大学","H"],
+    ["哈尔滨工业大学（深圳）","C"],["中山大学（深圳）","C"],["暨南大学（深圳）","C"]
+  ]],
+  ["珠海", "5 个校区", [
+    ["中山大学（珠海）","C"],["北京师范大学（珠海）","C"],
+    ["北京理工大学（珠海）","C"],["暨南大学（珠海）","C"],
+    ["遵义医科大学（珠海）","C"],["北师香港浸会大学","H"],["珠海科技学院","M"]
+  ]],
+  ["东莞", "2 个校区", [
+    ["东莞理工学院","P"],["香港城市大学（东莞）","H"],
+    ["广东科技学院","M"],["东莞城市学院","M"],
+    ["广东医科大学（东莞）","C"],["广州新华学院（东莞）","C"]
+  ]],
+  ["佛山", "4 个校区", [
+    ["佛山大学","P"],["华南师范大学（南海）","C"],["南方医科大学（顺德）","C"],
+    ["广东财经大学（佛山）","C"],["广州美术学院（佛山）","C"],["广东东软学院","M"]
+  ]],
+  ["湛江", "", [
+    ["广东海洋大学","P"],["广东医科大学","P"],["岭南师范学院","P"],["湛江科技学院","M"]
+  ]],
+  ["汕头", "", [
+    ["汕头大学","P"],["广东以色列理工学院","H"]
+  ]],
+  ["肇庆", "3 个校区", [
+    ["肇庆学院","P"],["肇庆医学院","P"],
+    ["广东金融学院（肇庆）","C"],["广州应用科技学院（肇庆）","C"],["广州华商学院（肇庆）","C"],
+    ["广东理工学院","M"],["广东工商职业技术大学","M"]
+  ]],
+  ["江门", "1 个校区", [
+    ["五邑大学","P"],["广州华立学院（江门）","C"],["广东江门南粤学院","M"]
+  ]],
+  ["惠州", "1 个校区", [
+    ["惠州学院","P"],["广州理工学院（惠州）","C"]
+  ]],
+  ["中山", "1 个校区", [
+    ["电子科技大学中山学院","M"],["广东药科大学（中山）","C"]
+  ]],
+  ["茂名", "1 个校区", [
+    ["广东石油化工学院","P"],["广州科技职业技术大学（茂名）","C"]
+  ]],
+  ["韶关", "", [["韶关学院","P"]]],
+  ["梅州", "", [["嘉应学院","P"]]],
+  ["潮州", "", [["韩山师范学院","P"]]],
+  ["汕尾", "只有校区", [["华南师范大学（汕尾）","C"]]],
+  ["阳江", "只有校区", [["广东海洋大学（阳江）","C"]]],
+  ["云浮", "只有校区", [["广东药科大学（云浮）","C"]]],
+  ["河源", "只有校区", [["广东技术师范大学（河源）","C"]]],
+  ["清远", "只有校区", [["广东金融学院（清远）","C"]]],
+  ["揭阳", "只有校区", [["广东工业大学（揭阳）","C"]]]
+];
+const TAG = {P:"公办", M:"民办", H:"合作", C:"校区"};
+const BADGE = {P:"b-p", M:"b-m", H:"b-h", C:"b-c"};
+
+let qType = "all", qCity = null;
+const cityChips = document.getElementById("cityChips");
+DATA.forEach((c, i) => {
+  const el = document.createElement("div");
+  el.className = "chip"; el.textContent = c[0]; el.dataset.i = i;
+  el.onclick = () => {
+    qCity = (qCity === i) ? null : i;
+    [...cityChips.children].forEach(e => e.classList.toggle("on", e.dataset.i !== undefined && e.dataset.i == qCity));
+    render();
+  };
+  cityChips.appendChild(el);
+});
+
+document.getElementById("typeChips").onclick = e => {
+  const el = e.target.closest(".chip"); if (!el) return;
+  qType = el.dataset.t;
+  [...el.parentElement.children].forEach(x => x.classList.toggle("on", x === el));
+  render();
+};
+
+document.getElementById("q").addEventListener("input", render);
+
+function render() {
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+  let shown = 0;
+  DATA.forEach((city, ci) => {
+    if (qCity !== null && qCity !== ci) return;
+    const us = city[2].filter(u =>
+      (qType === "all" || u[1] === qType) &&
+      (!q || u[0].toLowerCase().includes(q) || city[0].toLowerCase().includes(q))
+    );
+    if (!us.length) return;
+    shown += us.length;
+    const head = document.createElement("div");
+    head.className = "cityhead";
+    head.innerHTML = `<h2>${city[0]}</h2><span>${city[1]}</span><b>${us.length} 所</b>`;
+    list.appendChild(head);
+    us.forEach(u => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `<div class="name">${u[0]}</div><span class="badge ${BADGE[u[1]]}">${TAG[u[1]]}</span>`;
+      list.appendChild(card);
+    });
+  });
+  document.getElementById("empty").style.display = shown ? "none" : "block";
+}
+render();
+</script>
+</body>
+</html>
