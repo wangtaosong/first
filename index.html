@@ -18,18 +18,19 @@
     background-attachment: fixed; color: var(--text); min-height: 100vh;
   }
   .wrap { max-width: 680px; margin: 0 auto; padding: 0 16px 60px; }
-  header { padding: 22px 4px 8px; }
-  .kicker { color: var(--gold); font-size: 12px; letter-spacing: 2px; font-weight: 600; }
-  h1 { font-size: 27px; margin-top: 7px; line-height: 1.22; }
+  header { padding: 14px 4px 2px; }
+  .kicker { color: var(--gold); font-size: 11px; letter-spacing: 2px; font-weight: 600; }
+  h1 { font-size: 21px; margin-top: 5px; line-height: 1.2; white-space: nowrap; }
   h1 em { font-style: normal; color: var(--gold); }
-  .sub { color: var(--sub); font-size: 13px; margin-top: 6px; }
-  .stats { display: flex; gap: 10px; margin: 12px 0 4px; }
+  .sub { color: var(--sub); font-size: 12.5px; margin-top: 4px; white-space: nowrap; }
+  .stats { display: flex; gap: 8px; margin: 10px 0 0; }
   .stat {
     flex: 1; background: var(--card); border: 1px solid var(--line);
-    border-radius: 12px; padding: 8px 0 7px; text-align: center;
+    border-radius: 10px; padding: 7px 0 6px; text-align: center;
+    white-space: nowrap;
   }
-  .stat b { font-size: 21px; font-weight: 700; display: block; }
-  .stat span { font-size: 11px; color: var(--dim); }
+  .stat b { font-size: 19px; font-weight: 700; display: inline; }
+  .stat span { font-size: 11px; color: var(--dim); margin-left: 4px; }
   .searchbox { position: sticky; top: 0; z-index: 10; padding: 10px 0 8px;
     background: linear-gradient(180deg, rgba(13,22,42,.96) 70%, transparent); }
   input[type=search] {
