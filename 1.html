@@ -57,6 +57,12 @@
     background: rgba(30, 46, 78, .7); border: 1px solid rgba(143,162,196,.3);
     border-radius: 11px; cursor: pointer; user-select: none;
   }
+  .qbtn { margin-top: 8px; text-align: center; padding: 11px 0; border-radius: 12px;
+    font-size: 15px; font-weight: 700; color: #12203a; background: var(--gold);
+    cursor: pointer; user-select: none; }
+  .qbtn:active { opacity: .85; }
+  .qbtn small { font-weight: 400; opacity: .72; font-size: 12px; margin-left: 2px; }
+  .qbtn.off { background: rgba(30, 46, 78, .9); color: var(--dim); border: 1px solid rgba(143,162,196,.3); }
   .searchbox { margin-top: 8px; }
   .searchbox input {
     width: 100%; padding: 10px 16px; font-size: 15px; color: var(--text);
@@ -81,7 +87,7 @@
   .chip.c-c.on { background: var(--hk); border-color: var(--hk); }
   .zone { margin: 18px 0 8px; display: flex; align-items: baseline; gap: 8px; padding: 0 4px; }
   .zone .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; align-self: center; }
-  .zone h2 { font-size: 17px; }
+  .zone h2 { font-size: 17px; flex-shrink: 0; white-space: nowrap; }
   .zone span { font-size: 12px; color: var(--dim); }
   .card {
     background: var(--card); border: 1px solid rgba(143,162,196,.18);
@@ -106,6 +112,49 @@
     display: none; }
   .card.open .majors { display: block; }
   .majors div { font-size: 12px; color: var(--sub); line-height: 1.6; margin-bottom: 3px; }
+  .majors div.lk-minor { color: var(--gold); opacity: .85; }
+  .lockbox {
+    margin: 12px 0 4px; background: rgba(26, 42, 72, .82); border: 1px solid var(--line);
+    border-radius: 13px; padding: 14px 16px 13px;
+  }
+  .lockbox .lk-t { font-size: 15.5px; font-weight: 700; color: var(--gold); }
+  .lockbox .lk-d { font-size: 12px; color: var(--sub); line-height: 1.7; margin-top: 5px; }
+  .lockbox .lk-d b { color: var(--gold); font-weight: 600; }
+  .lk-row { display: flex; gap: 8px; margin-top: 10px; }
+  .lk-row input {
+    flex: 1; min-width: 0; padding: 9px 12px; font-size: 15px; color: var(--text);
+    background: rgba(30, 46, 78, .92); border: 1px solid var(--line);
+    border-radius: 11px; outline: none;
+  }
+  .lk-row input::placeholder { color: var(--dim); font-size: 13px; }
+  .lk-btn {
+    flex-shrink: 0; padding: 9px 20px; font-size: 14px; font-weight: 600; color: #12203a;
+    background: var(--gold); border-radius: 11px; cursor: pointer; user-select: none;
+  }
+  .lk-err { display: none; font-size: 12px; color: var(--pri); margin-top: 8px; }
+  .lk-wx { color: var(--gold); font-weight: 700; border-bottom: 1px dashed var(--gold); cursor: pointer; }
+  .lk-copied { color: var(--pub); font-size: 12px; margin-left: 6px; }
+  .lk-note { font-weight: 400; color: var(--sub); }
+  .useleft { font-size: 11.5px; color: var(--dim); margin-top: 10px; padding: 0 4px; }
+  .useleft b { color: var(--gold); }
+  .mask { position: fixed; inset: 0; background: rgba(5,10,20,.74); z-index: 50;
+    display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .modal { width: 100%; max-width: 400px; text-align: center;
+    background: linear-gradient(175deg, #22345a, #16233f); border: 1px solid var(--line);
+    border-radius: 16px; padding: 22px 18px 16px; }
+  .modal .md-t { font-size: 17px; font-weight: 700; color: var(--gold); line-height: 1.4; }
+  .modal .md-d { font-size: 13px; color: var(--sub); line-height: 1.95; margin-top: 10px; text-align: left; }
+  .modal .wx { color: var(--gold); font-weight: 700; font-size: 15px; letter-spacing: 1px;
+    border-bottom: 1px dashed var(--gold); cursor: pointer; white-space: nowrap; }
+  .modal .md-d b { color: var(--gold); }
+  .md-row { display: flex; gap: 8px; margin-top: 12px; }
+  .md-row .lk-btn { flex: 1; text-align: center; }
+  .md-row input { flex: 1; min-width: 0; padding: 9px 12px; font-size: 15px; color: var(--text);
+    background: rgba(30, 46, 78, .92); border: 1px solid var(--line); border-radius: 11px; outline: none; }
+  .md-row input::placeholder { color: var(--dim); font-size: 13px; }
+  .md-close { margin-top: 13px; font-size: 12px; color: var(--dim); cursor: pointer;
+    text-decoration: underline; text-underline-offset: 3px; }
+  .lockbox .lk-ok { font-size: 12.5px; color: var(--pub); margin-top: 8px; }
   .catline { font-size: 11px; color: var(--dim); margin-top: 6px; overflow: hidden;
     white-space: nowrap; text-overflow: ellipsis; }
   .catline b { color: var(--gold); font-weight: 500; }
@@ -125,7 +174,7 @@
     <div class="sub">6047 个专业组全收录 · 输入你的排位，秒出能冲能稳能保</div>
     <div class="stats">
       <div class="stat"><b style="color:var(--gold)">6047</b><span>个专业组</span></div>
-      <div class="stat"><b style="color:var(--cam)">93</b><span>个专业类</span></div>
+      <div class="stat"><b style="color:var(--cam)" id="statCat">91</b><span>个专业类</span></div>
       <div class="stat"><b style="color:var(--hk)">33</b><span>个生源省</span></div>
     </div>
   </header>
@@ -140,6 +189,7 @@
       <input id="inScore" type="text" inputmode="numeric" placeholder="或分数，如 588">
       <div class="btn-clear" id="btnClear">清空</div>
     </div>
+    <div class="qbtn" id="btnQuery">开始查询</div>
     <div class="searchbox">
       <input id="q" type="search" placeholder="搜校名，如：中山大学、深圳、师范…" autocomplete="off">
     </div>
@@ -148,6 +198,22 @@
   <div class="chips" id="lvChips"><span class="row-label">层次·可多选</span></div>
   <div class="chips" id="provChips"><span class="row-label">省份·可多选</span></div>
   <div class="chips" id="catChips"><span class="row-label">专业·可多选</span></div>
+
+  <div class="useleft" id="useLeft" style="display:none"></div>
+
+  <div class="mask" id="mask" style="display:none">
+    <div class="modal">
+      <div class="md-t" id="mdT">您的免费体验次数已用完！</div>
+      <div class="md-d" id="mdD">完整版数据及「冲稳保」分析需授权。<br>请添加微信：<b class="wx">177 0756 9819</b><br>发送<b>【珠海】</b>获取珠海家长专属验证码。</div>
+      <div class="md-row"><div class="lk-btn" id="btnCopyWx">一键复制微信号</div></div>
+      <div class="md-row">
+        <input id="lkCode" placeholder="输入验证码">
+        <div class="lk-btn" id="lkGo">解锁</div>
+      </div>
+      <div class="lk-err" id="lkErr">验证码不对，请核对后重试</div>
+      <div class="md-close" id="mdClose">暂不解锁，继续浏览公共版</div>
+    </div>
+  </div>
 
   <div id="list"></div>
   <div class="hint" id="empty" style="display:none">没有匹配的专业组<br>试试放宽筛选条件</div>
@@ -199,10 +265,42 @@ buildChips("lvChips", LV_LIST.map(([v, l]) => [v, l, v]), "lv");
 const PROV_ORDER = ["广东","北京","上海","江苏","浙江","湖北","陕西","天津","四川","重庆","山东","福建","湖南","安徽","河南","河北","辽宁","吉林","黑龙江","江西","山西","云南","贵州","广西","海南","甘肃","内蒙古","新疆","宁夏","青海","西藏","中国香港","马来西亚"];
 const PROV_SHORT = { "黑龙江": "黑龙", "内蒙古": "内蒙", "中国香港": "香港", "马来西亚": "马来" };
 buildChips("provChips", PROV_ORDER.map(p => [p, PROV_SHORT[p] || p, p]), "prov");
-const CAT_COUNT = {};
-DATA().forEach(r => r[8].forEach(c => CAT_COUNT[c] = (CAT_COUNT[c] || 0) + 1));
-const CAT_LIST = Object.keys(CAT_COUNT).sort((a, b) => CAT_COUNT[b] - CAT_COUNT[a]);
-buildChips("catChips", CAT_LIST.map(c => [c, c]), "cat");
+/* 专业类按科类分别统计：历史类只有自己可报的类 */
+const CAT_BY_KE = {};
+["P", "H"].forEach(k => {
+  const cnt = {};
+  window.TDDATA[k].forEach(r => r[8].forEach(c => cnt[c] = (cnt[c] || 0) + 1));
+  CAT_BY_KE[k] = Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a]);
+});
+function buildCatChips() {
+  const box = document.getElementById("catChips");
+  const list = CAT_BY_KE[st.ke];
+  [...box.querySelectorAll(".chip")].forEach(el => el.remove());
+  box.scrollLeft = 0;
+  [...st.cat].forEach(c => { if (!list.includes(c)) st.cat.delete(c); });   // 跨科类失效项自动清掉
+  const allChip = document.createElement("div");
+  allChip.className = "chip" + (st.cat.size ? "" : " on");
+  allChip.textContent = "全部";
+  allChip.onclick = () => { st.cat.clear(); syncCat(); render(); };
+  box.appendChild(allChip);
+  list.forEach(c => {
+    const el = document.createElement("div");
+    el.className = "chip" + (st.cat.has(c) ? " on" : "");
+    el.textContent = c; el.dataset.v = c;
+    el.onclick = () => {
+      st.cat.has(c) ? st.cat.delete(c) : st.cat.add(c);
+      syncCat(); render();
+    };
+    box.appendChild(el);
+  });
+  function syncCat() {
+    allChip.classList.toggle("on", st.cat.size === 0);
+    [...box.querySelectorAll(".chip")].forEach(c => {
+      if (c !== allChip) c.classList.toggle("on", st.cat.has(c.dataset.v));
+    });
+  }
+}
+buildCatChips();
 
 /* ---------- 输入 ---------- */
 const inRank = document.getElementById("inRank"), inScore = document.getElementById("inScore");
@@ -220,13 +318,105 @@ document.getElementById("btnClear").onclick = () => {
   inRank.value = ""; inScore.value = ""; st.rank = null; st.score = null; render();
 };
 document.getElementById("q").addEventListener("input", e => { st.q = e.target.value.trim().toLowerCase(); render(); });
+inRank.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); doQuery(); } });
+inScore.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); doQuery(); } });
 document.querySelector(".tabs").onclick = e => {
   const el = e.target.closest(".tab"); if (!el) return;
   st.ke = el.dataset.k;
   [...el.parentElement.children].forEach(t => t.classList.toggle("on", t === el));
+  buildCatChips();
   render();
 };
 function DATA() { return window.TDDATA[st.ke]; }
+
+/* ---------- 发起查询：点一次 = 用掉一次 ---------- */
+function qSig() {
+  if (st.rank != null) return "r" + st.rank;
+  if (st.score != null) return "s" + st.score;
+  return "";
+}
+function syncQueryBtn() {
+  document.getElementById("btnQuery").innerHTML = "开始查询";
+}
+function doQuery() {
+  st.rank = parseInt(inRank.value.replace(/\D/g, "")) || null;
+  st.score = parseInt(inScore.value.replace(/\D/g, "")) || null;
+  if (st.rank && st.score) { st.score = null; inScore.value = ""; }
+  const sig = qSig();
+  if (!sig) { inRank.focus(); return; }
+  if (unlocked || sig === activeSig) { activeSig = sig; render(); return; }
+  if (used >= FREE_USES) { openModal("uses"); return; }
+  used++;
+  try { localStorage.setItem("td_used", String(used)); } catch (e) {}
+  activeSig = sig;
+  render();
+}
+document.getElementById("btnQuery").onclick = doQuery;
+
+/* ---------- 授权与免费次数 ---------- */
+const PASS = "2026td";                 // 验证码，改这里即可
+const FREE_USES = 5;                   // 免费完整查询次数
+let unlocked = false;
+try { unlocked = localStorage.getItem("td_unlocked") === "1"; } catch (e) {}
+let used = 0;
+try { used = parseInt(localStorage.getItem("td_used") || "0") || 0; } catch (e) {}
+let activeSig = "";  // 已"付费/免费"解锁的那一次查询
+let fullMode = false;
+
+const mask = document.getElementById("mask");
+const MODAL = {
+  uses: {
+    t: "您的免费体验次数已用完！",
+    d: '完整版数据及「冲稳保」分析需授权。<br>请添加微信：<b class="wx">177 0756 9819</b><br>发送<b>【珠海】</b>获取珠海家长专属验证码。'
+  },
+  majors: {
+    t: "专业组明细需授权",
+    d: '查看组内全部专业与办学地点需授权。<br>请添加微信：<b class="wx">177 0756 9819</b><br>发送<b>【珠海】</b>获取珠海家长专属验证码。'
+  }
+};
+function openModal(kind) {
+  const m = MODAL[kind || "uses"];
+  document.getElementById("mdT").textContent = m.t;
+  document.getElementById("mdD").innerHTML = m.d;
+  document.getElementById("lkErr").style.display = "none";
+  mask.style.display = "flex";
+}
+function closeModal() { mask.style.display = "none"; }
+document.getElementById("mdClose").onclick = closeModal;
+mask.addEventListener("click", e => { if (e.target === mask) closeModal(); });
+
+function tryUnlock() {
+  const v = (document.getElementById("lkCode").value || "").trim().toLowerCase();
+  if (v === PASS) {
+    unlocked = true;
+    try { localStorage.setItem("td_unlocked", "1"); } catch (e) {}
+    closeModal(); render();
+  } else {
+    document.getElementById("lkErr").style.display = "block";
+  }
+}
+document.getElementById("lkGo").onclick = tryUnlock;
+document.getElementById("lkCode").addEventListener("keydown", e => { if (e.key === "Enter") tryUnlock(); });
+
+const WX_NUM = "17707569819";
+function copyWx(btn) {
+  const done = () => {
+    btn.textContent = "已复制 ✓";
+    setTimeout(() => { btn.textContent = "一键复制微信号"; }, 1500);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(WX_NUM).then(done).catch(() => {});
+  else {
+    const ta = document.createElement("textarea");
+    ta.value = WX_NUM; document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); done(); } catch (err) {}
+    ta.remove();
+  }
+}
+document.getElementById("btnCopyWx").onclick = e => copyWx(e.target);
+mask.addEventListener("click", e => {
+  const wx = e.target.closest(".modal .wx");
+  if (wx) copyWx(document.getElementById("btnCopyWx"));
+});
 
 /* ---------- 筛选 + 分档 ---------- */
 function lvOK(rec) {
@@ -307,18 +497,35 @@ function cardHTML(rec, gi) {
 }
 
 function render() {
+  const gateSig = qSig();                       // 输入里有没有排位/分数
+  const hasGate = !!gateSig;
+  const allowed = hasGate && (unlocked || gateSig === activeSig);  // 这次输入是否已"付费"
+  fullMode = allowed;
+
+  const ul = document.getElementById("useLeft");
+  if (unlocked) ul.style.display = "none";
+  else {
+    ul.style.display = "block";
+    ul.innerHTML = used >= FREE_USES
+      ? `免费次数已用完 · 加微信获取验证码解锁完整版`
+      : `输入排位或分数后点「开始查询」`;
+  }
+  syncQueryBtn();
+  document.getElementById("statCat").textContent = CAT_BY_KE[st.ke].length;
+
   const recs = filterRecs();
   const list = document.getElementById("list");
-  const hasGate = st.rank != null || st.score != null;
   let html = "", shownCount = 0;
 
-  if (!hasGate) {
+  if (!allowed) {
     const sorted = recs.slice().sort((a, b) => (b[4] ?? -1) - (a[4] ?? -1));
-    const n = Math.min(shown[0], sorted.length);
-    html = `<div class="zone"><span class="dot" style="background:${ZONES[1].c}"></span><h2>全部专业组</h2><span>${fmt(recs.length)} 组 · 按投档分排序 · 填排位后自动分冲稳保</span></div>`;
+    const n = Math.min(3, sorted.length);
+    const ztitle = hasGate ? "预览 · 未分档" : "全部专业组";
+    const zdesc = hasGate ? `${fmt(recs.length)} 组 · 点「开始查询」出冲稳保分档` : `${fmt(recs.length)} 组 · 按投档分排序 · 填排位后点「开始查询」`;
+    html = `<div class="zone"><span class="dot" style="background:${ZONES[1].c}"></span><h2>${ztitle}</h2><span>${zdesc}</span></div>`;
     html += sorted.slice(0, n).map(r => cardHTML(r, 1)).join("");
     shownCount = n;
-    if (n < sorted.length) html += `<div class="more"><span data-z="0" data-add="40">再看 ${Math.min(40, sorted.length - n)} 组 ▾</span></div>`;
+    if (n < sorted.length) html += `<div class="more"><span data-lock="1">点「开始查询」查看全部 ${sorted.length} 组 →</span></div>`;
   } else {
     const buckets = [[], [], [], []];
     let skipped = 0;
@@ -344,6 +551,8 @@ function render() {
 }
 
 document.getElementById("list").addEventListener("click", e => {
+  const lock = e.target.closest("[data-lock]");
+  if (lock) { doQuery(); return; }
   const more = e.target.closest(".more span");
   if (more) { shown[more.dataset.z] += +more.dataset.add; render();
     const z = document.querySelectorAll(".zone")[more.dataset.z]; if (z) z.scrollIntoView({ block: "start" });
