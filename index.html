@@ -16,13 +16,14 @@
     font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
     background: linear-gradient(175deg, var(--bg1) 0%, var(--bg2) 78%);
     background-attachment: fixed; color: var(--text); min-height: 100vh;
+    overflow-x: hidden;
   }
   .wrap { max-width: 680px; margin: 0 auto; padding: 0 16px 60px; }
   header { padding: 14px 4px 2px; }
   .kicker { color: var(--gold); font-size: 11px; letter-spacing: 2px; font-weight: 600; }
   h1 { font-size: 21px; margin-top: 5px; line-height: 1.2; white-space: nowrap; }
   h1 em { font-style: normal; color: var(--gold); }
-  .sub { color: var(--sub); font-size: 12.5px; margin-top: 4px; white-space: nowrap; }
+  .sub { color: var(--sub); font-size: 12px; margin-top: 4px; }
   .stats { display: flex; gap: 8px; margin: 10px 0 0; }
   .stat {
     flex: 1; background: var(--card); border: 1px solid var(--line);
@@ -40,8 +41,9 @@
   }
   input[type=search]::placeholder { color: var(--dim); }
   .chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 0 6px; }
-  #typeChips { flex-wrap: nowrap; }
-  #typeChips .chip { padding: 6px 12px; font-size: 12.5px; flex-shrink: 0; }
+  #typeChips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+  #typeChips::-webkit-scrollbar { display: none; }
+  #typeChips .chip { padding: 5px 10px; font-size: 12px; flex-shrink: 0; }
   .row-label { font-size: 11px; color: var(--dim); margin-right: 2px; flex-shrink: 0; }
   .chips.cities { margin-top: 10px; padding-top: 10px; border-top: 1px dashed rgba(143,162,196,.25); }
   .chip {
