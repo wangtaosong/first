@@ -174,7 +174,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="kicker">广东 · 2026 本科投档数据 <i>v7</i><b id="lkTag" style="display:none;font-weight:600;color:var(--gold)"> · 已解锁</b></div>
+    <div class="kicker">广东 · 2026 本科投档数据 <i>v8</i><b id="lkTag" style="display:none;font-weight:600;color:var(--gold)"> · 已解锁</b></div>
     <h1>2026 投档线 · <em>冲稳保</em></h1>
     <div class="sub">6047 个专业组全收录 · 输入你的排位，秒出能冲能稳能保</div>
     <div class="stats">
@@ -576,7 +576,7 @@ function render() {
 
 document.getElementById("list").addEventListener("click", e => {
   const lock = e.target.closest("[data-lock]");
-  if (lock) { doQuery(); return; }
+  if (lock) { unlocked ? render() : openModal("uses"); return; }
   const more = e.target.closest(".more span");
   if (more) { shown[more.dataset.z] += +more.dataset.add; render();
     const z = document.querySelectorAll(".zone")[more.dataset.z]; if (z) z.scrollIntoView({ block: "start" });
