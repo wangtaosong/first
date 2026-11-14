@@ -174,7 +174,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="kicker">广东 · 2026 本科投档数据 <i>v5</i></div>
+    <div class="kicker">广东 · 2026 本科投档数据 <i>v6</i></div>
     <h1>2026 投档线 · <em>冲稳保</em></h1>
     <div class="sub">6047 个专业组全收录 · 输入你的排位，秒出能冲能稳能保</div>
     <div class="stats">
@@ -507,7 +507,7 @@ function cardHTML(rec, gi) {
 function render() {
   const gateSig = qSig();                       // 输入里有没有排位/分数
   const hasGate = !!gateSig;
-  const allowed = hasGate && (unlocked || gateSig === activeSig);  // 这次输入是否已"付费"
+  const allowed = unlocked || (hasGate && gateSig === activeSig);  // 是否可看全部（已解锁一律放行）
   fullMode = allowed;
 
   const ul = document.getElementById("useLeft");
@@ -541,6 +541,14 @@ function render() {
     html += pick.map(r => cardHTML(r, 1)).join("");
     shownCount = pick.length;
     if (recs.length > pick.length) html += `<div class="more"><span data-lock="1">解锁后查看全部 ${fmt(recs.length)} 组 →</span></div>`;
+  } else if (!hasGate) {
+    // 已解锁但还没填排位/分数：先把筛选出的组按投档分列全，填排位后再出分档
+    const sorted = recs.slice().sort((a, b) => (b[4] ?? -1) - (a[4] ?? -1));
+    const n = Math.min(shown[1], sorted.length);
+    html = `<div class="zone"><span class="dot" style="background:${ZONES[1].c}"></span><h2>全部专业组</h2><span>${fmt(recs.length)} 组 · 按投档分排序 · 填排位后出冲稳保分档</span></div>`;
+    html += sorted.slice(0, n).map(r => cardHTML(r, 1)).join("");
+    shownCount = n;
+    if (n < sorted.length) html += `<div class="more"><span data-z="1" data-add="40">再看 ${Math.min(40, sorted.length - n)} 组 ▾</span></div>`;
   } else {
     const buckets = [[], [], [], []];
     let skipped = 0;
