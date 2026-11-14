@@ -174,7 +174,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="kicker">广东 · 2026 本科投档数据 <i>v6</i></div>
+    <div class="kicker">广东 · 2026 本科投档数据 <i>v7</i><b id="lkTag" style="display:none;font-weight:600;color:var(--gold)"> · 已解锁</b></div>
     <h1>2026 投档线 · <em>冲稳保</em></h1>
     <div class="sub">6047 个专业组全收录 · 输入你的排位，秒出能冲能稳能保</div>
     <div class="stats">
@@ -517,6 +517,7 @@ function render() {
     ul.innerHTML = `输入排位或分数后点「开始查询」`;
   }
   syncQueryBtn();
+  document.getElementById("lkTag").style.display = unlocked ? "inline" : "none";
   document.getElementById("statCat").textContent = CAT_BY_KE[st.ke].length;
 
   const recs = filterRecs();
