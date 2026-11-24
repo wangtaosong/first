@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="format-detection" content="telephone=no">
 <meta name="renderer" content="webkit">
-<title>广东 100 个本科去处 · 2026 投档全解</title>
+<title>广东大学全览 · 珠海生涯规划</title>
 <style>
   :root {
     --bg1: #1e2e50; --bg2: #0d162a;
@@ -232,8 +232,8 @@
   <div class="brandbar"><span class="bk">公众号：</span><b>珠海生涯规划</b></div>
   <header>
     <div class="kicker">广东 · 本科去处全清单 <i>v6 投档版</i></div>
-    <h1>广东 <em>100</em> 个本科去处</h1>
-    <div class="sub">21 个市全覆盖 · 每所点开看 <b style="color:var(--gold)">全部专业组</b>、组内专业、投档分与排位 · 填排位直出冲稳保</div>
+    <h1>广东大学 <em>全览</em></h1>
+    <div class="sub">21 个市全覆盖 · 每所点开看 <b style="color:var(--gold)">全部专业组</b>、组内专业、投档分与位次 · 填位次直出冲稳保</div>
     <div class="stats">
       <div class="stat"><b style="color:var(--gold)">100</b><span>个去处</span></div>
       <div class="stat"><b style="color:var(--pub)" id="stG">911</b><span>个专业组</span></div>
@@ -243,13 +243,13 @@
     <details class="caliber">
       <summary><b>分数怎么看</b><span>校线口径 + 专业组口径</span><u>点开</u></summary>
       <ol>
-        <li><em>校线</em>：广东省教育考试院 2026 年普通类<em>本科批</em>投档数据，该校在粤所有专业组里的<em>最低投档分</em>及<em>最低排位</em>。校线≠热门专业分，只代表"最低门槛"。</li>
+        <li><em>校线</em>：广东省教育考试院 2026 年普通类<em>本科批</em>投档数据，该校在粤所有专业组里的<em>最低投档分</em>及<em>最低位次</em>。校线≠热门专业分，只代表"最低门槛"。</li>
         <li class="k"><em>已剔除</em>（校线口径）：中外合作办学、内地与港澳合作办学、国际班、联合培养 / 协同培养、校企合作、少数民族班、预科班、地方专项 / 高校专项等特殊类型专业组，避免拉低校线。</li>
         <li><em>组数据</em>：点开学校看到的每个「专业组」，是 2026 年在粤的实际投档单位。<em>投档线是按组划的，不是按专业划的</em>——同组内所有专业共用一个投档分，进组后再按校内规则分专业。</li>
         <li><em>计划 / 投档</em>：前者是招生计划数，后者是实际投档人数。投档数少于计划数标红（生源不足，可能参加征集志愿）。</li>
         <li><em>校区</em>：办学地点单独成组的按组取分；未单列校区专业组的（如中大深圳/珠海、暨大深圳/珠海），用本部全校线并在展开区注明，卡片边框为虚线。</li>
         <li><em>缺数据</em>：香港科技大学（广州）、香港中文大学（深圳）走综合评价 / 提前批；北京理工大学（珠海）为中外合作办学，按要求不列入统计。</li>
-        <li><em>用法</em>：先看<em>排位</em>再看分。每年难度不同，跨年比较以最低排位为准。填了排位后，冲＝门槛高于你 15% 以内，稳＝你高于门槛 0–25%，保＝你高于门槛 25% 以上。</li>
+        <li><em>用法</em>：先看<em>位次</em>再看分。每年难度不同，跨年比较以最低位次为准。填了位次后，冲＝门槛高于你 15% 以内，稳＝你高于门槛 0–25%，保＝你高于门槛 25% 以上。</li>
       </ol>
     </details>
   </header>
@@ -378,7 +378,7 @@ S.forEach(r => { if (!CITIES.includes(r[0])) CITIES.push(r[0]); });
   cityBox.appendChild(el);
 });
 
-/* ---------- 排位 <-> 分数 ---------- */
+/* ---------- 位次 <-> 分数 ---------- */
 function r2s(ke, r) {
   const a = M[ke];
   if (r < a[0][0]) return { s: a[0][1], edge: 1 };
@@ -411,7 +411,7 @@ rankIn.addEventListener("input", readInput);
 document.getElementById("mtog").onclick = () => {
   st.mode = st.mode === "rank" ? "score" : "rank";
   const t = document.getElementById("mtog");
-  t.textContent = st.mode === "rank" ? "排位" : "分数";
+  t.textContent = st.mode === "rank" ? "位次" : "分数";
   rankIn.placeholder = st.mode === "rank" ? "如 52000" : "如 580";
   rankIn.value = "";
   st.rank = null; st.score = null;
@@ -650,5 +650,6 @@ document.getElementById("list").addEventListener("click", e => {
 
 render();
 </script>
+<a href="index.html" style="position:fixed;left:14px;bottom:calc(22px + env(safe-area-inset-bottom));z-index:90;background:#ffce7e;color:#0d162a;font-size:13px;font-weight:700;padding:9px 14px;border-radius:999px;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,.35)">← 工具箱</a>
 </body>
 </html>
