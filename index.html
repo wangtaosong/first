@@ -1,309 +1,82 @@
 <!DOCTYPE html>
-<html lang="zh-CN" style="overflow-x:hidden">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="format-detection" content="telephone=no">
-<meta name="renderer" content="webkit">
-<title>广东 100 个本科去处 · 按市查</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>珠海生涯规划 · 高考工具箱</title>
 <style>
-  :root {
-    --bg1: #1e2e50; --bg2: #0d162a;
-    --gold: #ffce7e; --text: #f6f9ff; --sub: #c4d2ea; --dim: #8fa2c4;
-    --pub: #68d6ca; --pri: #ff9280; --hk: #b2a0ff; --cam: #6eb0ff;
-    --card: rgba(26, 42, 72, .82); --line: rgba(255, 206, 126, .35);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-  body {
-    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: linear-gradient(175deg, var(--bg1) 0%, var(--bg2) 78%);
-    background-attachment: fixed; color: var(--text); min-height: 100vh;
-    width: 100%; overflow-x: hidden; -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
-  }
-  .wrap { width: 100%; max-width: 680px; margin: 0 auto; padding: 0 16px 60px; overflow: hidden; }
-  header { padding: 14px 4px 2px; }
-  .kicker { color: var(--gold); font-size: 11px; letter-spacing: 2px; font-weight: 600; }
-  .kicker i { font-style: normal; opacity: .4; letter-spacing: 0; font-weight: 400; }
-  h1 { font-size: 21px; margin-top: 5px; line-height: 1.2; }
-  h1 em { font-style: normal; color: var(--gold); }
-  .sub { color: var(--sub); font-size: 12px; margin-top: 4px; }
-  .stats { display: flex; gap: 8px; margin: 10px 0 0; }
-  .stat {
-    flex: 1 1 0; min-width: 0; background: var(--card); border: 1px solid var(--line);
-    border-radius: 10px; padding: 7px 4px 6px; text-align: center; overflow: hidden;
-  }
-  .stat b { font-size: 18px; font-weight: 700; display: inline; }
-  .stat span { font-size: 10.5px; color: var(--dim); margin-left: 3px; }
-  .searchbox { position: sticky; top: 0; z-index: 10; padding: 10px 0 8px;
-    background: linear-gradient(180deg, rgba(13,22,42,.96) 70%, transparent); }
-  input[type=search] {
-    width: 100%; padding: 11px 16px; font-size: 16px; color: var(--text);
-    background: rgba(30, 46, 78, .92); border: 1px solid var(--line);
-    border-radius: 13px; outline: none;
-  }
-  input[type=search]::placeholder { color: var(--dim); }
-  .chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 0 6px; min-width: 0; max-width: 100%; }
-  #typeChips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
-  #typeChips::-webkit-scrollbar { display: none; }
-  #typeChips .chip { padding: 5px 10px; font-size: 12px; flex-shrink: 0; }
-  .row-label { font-size: 11px; color: var(--dim); margin-right: 2px; flex-shrink: 0; }
-  .chips.cities { margin-top: 10px; padding-top: 10px; border-top: 1px dashed rgba(143,162,196,.25); }
-  .chip {
-    padding: 7px 14px; font-size: 13px; color: var(--sub);
-    background: rgba(30, 46, 78, .7); border: 1px solid rgba(143,162,196,.3);
-    border-radius: 20px; cursor: pointer; user-select: none; transition: .15s;
-    max-width: 100%; white-space: nowrap;
-  }
-  .chip.on { color: #12203a; background: var(--gold); border-color: var(--gold); font-weight: 600; }
-  .chip.c-p.on { background: var(--pub); border-color: var(--pub); }
-  .chip.c-m.on { background: var(--pri); border-color: var(--pri); }
-  .chip.c-h.on { background: var(--hk); border-color: var(--hk); }
-  .chip.c-c.on { background: var(--cam); border-color: var(--cam); }
-  .cityhead {
-    display: flex; align-items: baseline; gap: 10px;
-    margin: 22px 4px 10px;
-  }
-  .cityhead h2 { font-size: 21px; }
-  .cityhead span { font-size: 12px; color: var(--dim); }
-  .cityhead b { margin-left: auto; color: var(--gold); font-size: 15px; }
-  .card {
-    background: var(--card); border: 1px solid rgba(143,162,196,.18);
-    border-radius: 14px; margin-bottom: 8px; padding: 13px 15px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .card .name { font-size: 16.5px; flex: 1 1 auto; min-width: 0; line-height: 1.35; word-break: break-word; }
-  .badge {
-    font-size: 12px; padding: 3px 9px; border-radius: 7px; white-space: nowrap;
-    border: 1px solid; flex-shrink: 0;
-  }
-  .b-p { color: var(--pub); border-color: rgba(104,214,202,.5); background: rgba(104,214,202,.1); }
-  .b-m { color: var(--pri); border-color: rgba(255,146,128,.5); background: rgba(255,146,128,.1); }
-  .b-h { color: var(--hk); border-color: rgba(178,160,255,.5); background: rgba(178,160,255,.1); }
-  .b-c { color: var(--cam); border-color: rgba(110,176,255,.5); background: rgba(110,176,255,.1); }
-  
-  .card { align-items: center; }
-  .card .main { flex: 1 1 auto; min-width: 0; }
-  .card .name { font-size: 16.5px; line-height: 1.35; word-break: break-word; }
-  .sc { display: flex; flex-wrap: wrap; gap: 3px 12px; margin-top: 5px; font-size: 11.5px; }
-  .sc b { font-weight: 600; }
-  .sc i { font-style: normal; color: var(--dim); font-size: 10px; margin-left: 2px; letter-spacing: 0; }
-  .s-p { color: #8ecbff; }
-  .s-h { color: #ffc98a; }
-  .sc .na { color: var(--dim); }
-  details.caliber {
-    margin-top: 12px; background: rgba(26, 42, 72, .72);
-    border: 1px solid rgba(255, 206, 126, .28); border-radius: 12px;
-    padding: 0 12px; overflow: hidden;
-  }
-  details.caliber summary {
-    list-style: none; cursor: pointer; padding: 10px 0 9px;
-    display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap;
-  }
-  details.caliber summary::-webkit-details-marker { display: none; }
-  details.caliber summary b { font-size: 12.5px; color: var(--gold); }
-  details.caliber summary span { font-size: 11px; color: var(--sub); }
-  details.caliber summary u {
-    text-decoration: none; margin-left: auto; font-size: 10.5px;
-    color: var(--dim); border-bottom: 1px dashed rgba(143,162,196,.5);
-  }
-  details.caliber ol { margin: 0 0 10px 0; padding-left: 16px; }
-  details.caliber li {
-    font-size: 11.5px; color: var(--sub); line-height: 1.72; margin-bottom: 4px;
-    word-break: break-word;
-  }
-  details.caliber li em { font-style: normal; color: var(--gold); }
-  details.caliber li.k { color: #ffd7a0; }
-  .empty { text-align: center; color: var(--dim); padding: 60px 0; font-size: 15px; }
-  footer { color: var(--dim); font-size: 12px; line-height: 1.8; margin-top: 34px;
-    border-top: 1px solid rgba(143,162,196,.2); padding-top: 16px; word-break: break-word; }
+:root{--bg:#0d162a;--card:#16233f;--line:#3a4c74;--gold:#ffce7e;--txt:#eaf1ff;--sub:#8fa2c4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(180deg,#0d162a 0%,#25365a 100%);color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  min-height:100vh;padding-bottom:40px}
+.head{text-align:center;padding:34px 20px 10px}
+.head .brand{font-size:15px;color:var(--sub);letter-spacing:2px}
+.head h1{font-size:30px;color:var(--gold);margin-top:8px;font-weight:800}
+.head .slogan{font-size:14px;color:var(--sub);margin-top:10px}
+.tip{margin:16px 20px 6px;font-size:13px;color:var(--sub);text-align:center}
+.list{padding:10px 16px}
+a.tool{display:flex;align-items:center;gap:14px;background:var(--card);
+  border:1px solid var(--line);border-radius:18px;padding:18px 16px;
+  margin:14px 0;text-decoration:none;color:var(--txt);
+  box-shadow:0 4px 14px rgba(0,0,0,.25);transition:transform .1s}
+a.tool:active{transform:scale(.98)}
+.ico{width:54px;height:54px;border-radius:14px;background:#1f3054;display:flex;
+  align-items:center;justify-content:center;font-size:30px;flex-shrink:0}
+.tt{flex:1}
+.tt b{font-size:18px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tag{font-size:11px;color:#0d162a;background:var(--gold);border-radius:8px;
+  padding:2px 8px;font-weight:700}
+.tag.new{background:#ff9ec7}
+.tt span{font-size:13px;color:var(--sub);display:block;margin-top:6px;line-height:1.5}
+.arrow{color:var(--gold);font-size:22px;font-weight:700}
+.foot{text-align:center;color:var(--sub);font-size:12px;margin-top:26px;line-height:1.8}
+.foot b{color:var(--gold);font-weight:700}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="kicker">广东 · 本科去处全清单 <i>v5</i></div>
-    <h1>广东 <em>100</em> 个本科去处</h1>
-    <div class="sub">21 个市全覆盖 · 附 2026 物理 / 历史最低投档分 · 按城市、性质筛选或搜校名</div>
-    <div class="stats">
-      <div class="stat"><b style="color:var(--gold)">100</b><span>个去处</span></div>
-      <div class="stat"><b style="color:var(--pub)">72</b><span>所独立设置</span></div>
-      <div class="stat"><b style="color:var(--cam)">28</b><span>个校区·合作</span></div>
+<div class="head">
+  <div class="brand">珠海生涯规划</div>
+  <h1>高考志愿 · 工具箱</h1>
+  <div class="slogan">查大学 · 配分数 · 选专业，全部免费</div>
+</div>
+<div class="tip">👇 点击下方卡片，直接使用对应工具</div>
+
+<div class="list">
+
+  <a class="tool" href="gd.html">
+    <div class="ico">🏫</div>
+    <div class="tt">
+      <b>广东大学全览 <i class="tag">全省高校</i></b>
+      <span>广东高校一页看全：办学层次、校区分布、录取门槛，给孩子找目标校不用再翻十篇文章</span>
     </div>
+    <div class="arrow">›</div>
+  </a>
 
-    <details class="caliber">
-      <summary><b>分数怎么看</b><span>2026 广东本科批最低投档分 · 统计口径</span><u>点开</u></summary>
-      <ol>
-        <li><em>取数</em>：广东省教育考试院 2026 年普通类<em>本科批</em>投档数据，物理类、历史类各取一条「校线」——该校在粤所有专业组里的<em>最低投档分</em>及对应<em>最低排位</em>。校线≠热门专业分，只代表"最低门槛"。</li>
-        <li class="k"><em>已剔除</em>：中外合作办学、内地与港澳合作办学、国际班、联合培养 / 协同培养、校企合作、少数民族班、预科班、地方专项 / 高校专项等特殊类型专业组（这类组分数明显偏低，会拉低校线）。</li>
-        <li><em>例外</em>：整校即合作办学的 5 所（深圳北理莫斯科、北师香港浸会、香港城市大学（东莞）、广东以色列理工、天津大学香港理工深圳未来技术学院）保留其合作办学组分数。</li>
-        <li><em>校区</em>：按"办学地点"单列的专业组取最低分；若该校在粤<em>未单列校区专业组</em>（与本部混编投档），用全校线代替，分数前标 <em>≈</em>。</li>
-        <li><em>缺数据</em>：标 <em>—</em> 的有两类——香港科技大学（广州）、香港中文大学（深圳）主要走综合评价 / 提前批；北京理工大学（珠海）相关专业组属中外合作办学，不列入统计。另：部分理工类院校历史类不投放计划（南科大、深理工、港城大东莞、广以理工、天大港理工深院），历史类同标 —。</li>
-        <li><em>用法</em>：先看<em>排位</em>再看分。每年难度不同，跨年比较以最低排位为准；本页为"最低门槛"，具体专业组分数请用投档线查询页核对。</li>
-      </ol>
-    </details>
-  </header>
-
-  <div class="searchbox">
-    <input id="q" type="search" placeholder="搜校名，如：珠海、中大、香港…" autocomplete="off">
-    <div class="chips" id="typeChips">
-      <span class="row-label">性质</span>
-      <div class="chip on" data-t="all">全部</div>
-      <div class="chip c-p" data-t="P">公办</div>
-      <div class="chip c-m" data-t="M">民办</div>
-      <div class="chip c-h" data-t="H">合作</div>
-      <div class="chip c-c" data-t="C">校区</div>
+  <a class="tool" href="daxue.html">
+    <div class="ico">🎯</div>
+    <div class="tt">
+      <b>输入分数，秒配大学 <i class="tag new">最实用</i></b>
+      <span>孩子这分能上哪儿？输入分数立刻匹配能上的大学，冲稳保一目了然，不浪费每一分</span>
     </div>
-    <div class="chips cities" id="cityChips"><span class="row-label">城市</span></div>
-  </div>
+    <div class="arrow">›</div>
+  </a>
 
-  <div id="list"></div>
-  <div class="empty" id="empty" style="display:none">没有匹配的学校，换个关键词试试</div>
+  <a class="tool" href="zhuanye.html">
+    <div class="ico">📚</div>
+    <div class="tt">
+      <b>883 个专业全解码 <i class="tag">选专业必备</i></b>
+      <span>学什么课程 · 考研方向 · 就业出口 · 考公岗位，一个专业从名字查到出路</span>
+    </div>
+    <div class="arrow">›</div>
+  </a>
 
-  <footer>
-    ＊分数为 2026 年广东普通类本科批最低投档分 / 最低排位，已剔除中外合作、专项等特殊类型专业组，口径详见页首「分数怎么看」。<br>
-    ＊数据据教育部 2025 年全国高校名单、2026 年合作办学审批结果及各地市教育局公布信息整理；具体以当年招生专业目录及招生章程为准。<br>
-    ＊「校区·合作」指数名在粤设立的异地校区，以及不具有法人资格的合作办学机构，均不单独计入独立设置高校。<br>
-    ＊天津大学香港理工大学深圳未来技术学院：2026 年 5 月获批、2026 年首届招本科（智能医学工程、计算机科学与技术），双学籍双学位，纳入统招本科批。<br>
-    珠海生涯规划 · 高考志愿与选科
-  </footer>
 </div>
 
-<script>
-const DATA = [
-  ["广州", "省会", [
-    ["中山大学","P"],["暨南大学","P"],["华南理工大学","P"],["华南农业大学","P"],
-    ["广州医科大学","P"],["广州中医药大学","P"],["广东药科大学","P"],
-    ["华南师范大学","P"],["广州体育学院","P"],["广州美术学院","P"],
-    ["星海音乐学院","P"],["广东技术师范大学","P"],["广东财经大学","P"],
-    ["广州大学","P"],["广州航海学院","P"],["广东警官学院","P"],
-    ["仲恺农业工程学院","P"],["广东金融学院","P"],["广东工业大学","P"],
-    ["广东外语外贸大学","P"],["南方医科大学","P"],["广东第二师范学院","P"],
-    ["广东轻工职业技术大学","P"],
-    ["广东白云学院","M"],["广东培正学院","M"],["广州城市理工学院","M"],
-    ["广州软件学院","M"],["广州南方学院","M"],["广东外语外贸大学南国商学院","M"],
-    ["广州华商学院","M"],["华南农业大学珠江学院","M"],["广州理工学院","M"],
-    ["广州华立学院","M"],["广州应用科技学院","M"],["广州商学院","M"],
-    ["广州工商学院","M"],["广州科技职业技术大学","M"],["广州新华学院","M"],
-    ["香港科技大学（广州）","H"]
-  ]],
-  ["深圳", "3 个校区", [
-    ["深圳大学","P"],["南方科技大学","P"],["深圳技术大学","P"],
-    ["深圳职业技术大学","P"],["深圳理工大学","P"],
-    ["香港中文大学（深圳）","H"],["深圳北理莫斯科大学","H"],
-    ["天津大学香港理工大学深圳未来技术学院","H"],
-    ["哈尔滨工业大学（深圳）","C"],["中山大学（深圳）","C"],["暨南大学（深圳）","C"]
-  ]],
-  ["珠海", "5 个校区", [
-    ["中山大学（珠海）","C"],["北京师范大学（珠海）","C"],
-    ["北京理工大学（珠海）","C"],["暨南大学（珠海）","C"],
-    ["遵义医科大学（珠海）","C"],["北师香港浸会大学","H"],["珠海科技学院","M"]
-  ]],
-  ["东莞", "2 个校区", [
-    ["东莞理工学院","P"],["香港城市大学（东莞）","H"],
-    ["广东科技学院","M"],["东莞城市学院","M"],
-    ["广东医科大学（东莞）","C"],["广州新华学院（东莞）","C"]
-  ]],
-  ["佛山", "4 个校区", [
-    ["佛山大学","P"],["华南师范大学（南海）","C"],["南方医科大学（顺德）","C"],
-    ["广东财经大学（佛山）","C"],["广州美术学院（佛山）","C"],["广东东软学院","M"]
-  ]],
-  ["湛江", "", [
-    ["广东海洋大学","P"],["广东医科大学","P"],["岭南师范学院","P"],["湛江科技学院","M"]
-  ]],
-  ["汕头", "", [
-    ["汕头大学","P"],["广东以色列理工学院","H"]
-  ]],
-  ["肇庆", "3 个校区", [
-    ["肇庆学院","P"],["肇庆医学院","P"],
-    ["广东金融学院（肇庆）","C"],["广州应用科技学院（肇庆）","C"],["广州华商学院（肇庆）","C"],
-    ["广东理工学院","M"],["广东工商职业技术大学","M"]
-  ]],
-  ["江门", "1 个校区", [
-    ["五邑大学","P"],["广州华立学院（江门）","C"],["广东江门南粤学院","M"]
-  ]],
-  ["惠州", "1 个校区", [
-    ["惠州学院","P"],["广州理工学院（惠州）","C"]
-  ]],
-  ["中山", "1 个校区", [
-    ["电子科技大学中山学院","M"],["广东药科大学（中山）","C"]
-  ]],
-  ["茂名", "1 个校区", [
-    ["广东石油化工学院","P"],["广州科技职业技术大学（茂名）","C"]
-  ]],
-  ["韶关", "", [["韶关学院","P"]]],
-  ["梅州", "", [["嘉应学院","P"]]],
-  ["潮州", "", [["韩山师范学院","P"]]],
-  ["汕尾", "只有校区", [["华南师范大学（汕尾）","C"]]],
-  ["阳江", "只有校区", [["广东海洋大学（阳江）","C"]]],
-  ["云浮", "只有校区", [["广东药科大学（云浮）","C"]]],
-  ["河源", "只有校区", [["广东技术师范大学（河源）","C"]]],
-  ["清远", "只有校区", [["广东金融学院（清远）","C"]]],
-  ["揭阳", "只有校区", [["广东工业大学（揭阳）","C"]]]
-];
-const SC = {"中山大学":[625,13063,615,1446,0],"暨南大学":[594,35940,587,5820,0],"华南理工大学":[627,11842,608,2193,0],"华南农业大学":[569,65742,556,16904,0],"广州医科大学":[556,83212,551,19657,0],"广州中医药大学":[553,88182,546,22142,0],"广东药科大学":[508,165673,521,37977,0],"华南师范大学":[587,43446,585,6345,0],"广州体育学院":[507,168515,523,36848,0],"广州美术学院":[523,138541,524,35641,0],"星海音乐学院":[527,131005,522,37089,0],"广东技术师范大学":[532,123455,534,29448,0],"广东财经大学":[549,94004,550,19791,0],"广州大学":[559,79622,555,17664,0],"广州航海学院":[518,147659,532,30616,0],"广东警官学院":[549,93683,546,21905,0],"仲恺农业工程学院":[504,173878,519,39453,0],"广东金融学院":[515,153970,521,38014,0],"广东工业大学":[564,72175,549,20592,0],"广东外语外贸大学":[564,71397,573,9949,0],"南方医科大学":[574,58598,559,15461,0],"广东第二师范学院":[515,154288,530,31990,0],"广东轻工职业技术大学":[532,122429,523,36727,0],"广东白云学院":[453,261935,478,74241,0],"广东培正学院":[443,277215,474,78412,0],"广州城市理工学院":[488,201889,501,53515,0],"广州软件学院":[442,278560,461,92030,0],"广州南方学院":[466,239113,482,70580,0],"广东外语外贸大学南国商学院":[465,241038,483,69845,0],"广州华商学院":[433,292404,458,94333,0],"华南农业大学珠江学院":[427,300200,445,109081,0],"广州理工学院":[450,266828,461,92126,0],"广州华立学院":[425,303911,452,100681,0],"广州应用科技学院":[427,301091,460,93190,0],"广州商学院":[463,244587,481,71518,0],"广州工商学院":[425,303918,447,107026,0],"广州科技职业技术大学":[425,303919,470,82851,0],"广州新华学院":[475,223812,499,55340,0],"香港科技大学（广州）":null,"深圳大学":[593,37316,582,7330,0],"南方科技大学":[656,2680,0,0,0],"深圳技术大学":[590,39780,563,13830,0],"深圳职业技术大学":[571,62567,550,19767,0],"深圳理工大学":[629,10995,0,0,0],"香港中文大学（深圳）":null,"深圳北理莫斯科大学":[560,77279,546,21917,0],"天津大学香港理工大学深圳未来技术学院":[630,10457,0,0,0],"哈尔滨工业大学（深圳）":[662,1807,613,1666,0],"中山大学（深圳）":[625,13063,615,1446,1],"暨南大学（深圳）":[594,35940,594,4342,1],"中山大学（珠海）":[625,13126,615,1446,1],"北京师范大学（珠海）":[622,14562,616,1384,0],"北京理工大学（珠海）":null,"暨南大学（珠海）":[600,30199,592,4831,1],"遵义医科大学（珠海）":[512,159425,530,31637,0],"北师香港浸会大学":[563,73756,550,20155,0],"珠海科技学院":[496,187700,506,49717,0],"东莞理工学院":[540,108945,523,36640,0],"香港城市大学（东莞）":[627,12076,0,0,0],"广东科技学院":[441,280692,461,91226,0],"东莞城市学院":[427,300309,453,99846,0],"广东医科大学（东莞）":[504,172913,524,35959,0],"广州新华学院（东莞）":[478,220137,499,55878,0],"佛山大学":[548,95064,550,19951,0],"华南师范大学（南海）":[589,40796,589,5417,0],"南方医科大学（顺德）":[580,51009,559,15461,0],"广东财经大学（佛山）":[549,94004,550,19791,0],"广州美术学院（佛山）":[523,138541,524,35641,1],"广东东软学院":[457,254547,480,73265,0],"广东海洋大学":[499,181910,528,33496,0],"广东医科大学":[504,172913,524,35959,0],"岭南师范学院":[498,184782,516,42033,0],"湛江科技学院":[425,303774,440,113596,0],"汕头大学":[561,76992,557,16686,0],"广东以色列理工学院":[549,93606,0,0,0],"肇庆学院":[499,181723,518,40191,0],"肇庆医学院":[494,191565,440,113666,0],"广东金融学院（肇庆）":[539,110405,538,26557,0],"广州应用科技学院（肇庆）":[427,301091,460,93190,0],"广州华商学院（肇庆）":[437,286337,459,94141,0],"广东理工学院":[425,303909,447,106596,0],"广东工商职业技术大学":[425,303893,446,107879,0],"五邑大学":[513,157050,527,33607,0],"广州华立学院（江门）":[425,303911,453,100611,0],"广东江门南粤学院":[476,222383,495,59123,0],"惠州学院":[503,174841,524,35726,0],"广州理工学院（惠州）":[450,266828,461,92126,1],"电子科技大学中山学院":[480,215278,494,59654,0],"广东药科大学（中山）":[509,164132,521,37977,0],"广东石油化工学院":[503,175233,513,43749,0],"韶关学院":[494,190709,513,43684,0],"嘉应学院":[493,192699,511,45755,0],"韩山师范学院":[494,190891,514,43256,0],"广州科技职业技术大学（茂名）":[425,303919,470,82851,1],"华南师范大学（汕尾）":[577,55284,573,10132,0],"广东海洋大学（阳江）":[499,181910,530,31808,0],"广东药科大学（云浮）":[508,165673,557,16678,0],"广东技术师范大学（河源）":[525,135435,543,23660,0],"广东金融学院（清远）":[527,131581,534,29098,0],"广东工业大学（揭阳）":[575,56855,543,23659,0]};
-const TAG = {P:"公办", M:"民办", H:"合作", C:"校区"};
-const BADGE = {P:"b-p", M:"b-m", H:"b-h", C:"b-c"};
-
-let qType = "all", qCity = null;
-const cityChips = document.getElementById("cityChips");
-DATA.forEach((c, i) => {
-  const el = document.createElement("div");
-  el.className = "chip"; el.textContent = c[0]; el.dataset.i = i;
-  el.onclick = () => {
-    qCity = (qCity === i) ? null : i;
-    [...cityChips.children].forEach(e => e.classList.toggle("on", e.dataset.i !== undefined && e.dataset.i == qCity));
-    render();
-  };
-  cityChips.appendChild(el);
-});
-
-document.getElementById("typeChips").onclick = e => {
-  const el = e.target.closest(".chip"); if (!el) return;
-  qType = el.dataset.t;
-  [...el.parentElement.children].forEach(x => x.classList.toggle("on", x === el));
-  render();
-};
-
-document.getElementById("q").addEventListener("input", render);
-
-
-function scoreLine(name) {
-  const d = SC[name];
-  if (!d) return `<div class="sc"><span class="na">物理 —</span><span class="na">历史 —</span></div>`;
-  const ap = d[4] ? "≈" : "";
-  const p = d[0] ? `<span class="s-p">物理 ${ap}<b>${d[0]}</b><i>${d[1]}位</i></span>` : `<span class="sc na">物理 —</span>`;
-  const h = d[2] ? `<span class="s-h">历史 ${ap}<b>${d[2]}</b><i>${d[3]}位</i></span>` : `<span class="sc na">历史 —</span>`;
-  return `<div class="sc">${p}${h}</div>`;
-}
-
-function render() {
-  const q = document.getElementById("q").value.trim().toLowerCase();
-  const list = document.getElementById("list");
-  list.innerHTML = "";
-  let shown = 0;
-  DATA.forEach((city, ci) => {
-    if (qCity !== null && qCity !== ci) return;
-    const us = city[2].filter(u =>
-      (qType === "all" || u[1] === qType) &&
-      (!q || u[0].toLowerCase().includes(q) || city[0].toLowerCase().includes(q))
-    );
-    if (!us.length) return;
-    shown += us.length;
-    const head = document.createElement("div");
-    head.className = "cityhead";
-    head.innerHTML = `<h2>${city[0]}</h2><span>${city[1]}</span><b>${us.length} 所</b>`;
-    list.appendChild(head);
-    us.forEach(u => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `<div class="main"><div class="name">${u[0]}</div>${scoreLine(u[0])}</div><span class="badge ${BADGE[u[1]]}">${TAG[u[1]]}</span>`;
-      list.appendChild(card);
-    });
-  });
-  document.getElementById("empty").style.display = shown ? "none" : "block";
-}
-render();
-</script>
+<div class="foot">
+  <b>珠海生涯规划 · 珠海志愿填报</b><br>
+  广东 2027 届高考家庭专用 · 建议收藏本页<br>
+  新工具持续更新中
+</div>
 </body>
 </html>
