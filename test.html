@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>珠海生涯规划 · 高考工具箱</title>
+<style>
+:root{--bg:#0d162a;--card:#16233f;--line:#3a4c74;--gold:#ffce7e;--txt:#eaf1ff;--sub:#8fa2c4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(180deg,#0d162a 0%,#25365a 100%);color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  min-height:100vh;padding-bottom:96px}
+.head{text-align:center;padding:34px 20px 10px}
+.head .brand{font-size:15px;color:var(--sub);letter-spacing:2px}
+.head h1{font-size:30px;color:var(--gold);margin-top:8px;font-weight:800}
+.head .slogan{font-size:14px;color:var(--sub);margin-top:10px}
+.tip{margin:16px 20px 6px;font-size:13px;color:var(--sub);text-align:center}
+.list{padding:10px 16px}
+a.tool{display:flex;align-items:center;gap:14px;background:var(--card);
+  border:1px solid var(--line);border-radius:18px;padding:18px 16px;
+  margin:14px 0;text-decoration:none;color:var(--txt);
+  box-shadow:0 4px 14px rgba(0,0,0,.25);transition:transform .1s}
+a.tool:active{transform:scale(.98)}
+.ico{width:54px;height:54px;border-radius:14px;background:#1f3054;display:flex;
+  align-items:center;justify-content:center;font-size:30px;flex-shrink:0}
+.tt{flex:1}
+.tt b{font-size:18px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tag{font-size:11px;color:#0d162a;background:var(--gold);border-radius:8px;
+  padding:2px 8px;font-weight:700}
+.tag.new{background:#ff9ec7}
+.tt span{font-size:13px;color:var(--sub);display:block;margin-top:6px;line-height:1.5}
+.arrow{color:var(--gold);font-size:22px;font-weight:700}
+.foot{text-align:center;color:var(--sub);font-size:12px;margin-top:26px;line-height:1.8}
+.foot b{color:var(--gold);font-weight:700}
+#shareBtn{position:fixed;right:16px;bottom:calc(20px + env(safe-area-inset-bottom));z-index:95;
+  display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#ffd98f,#f5b955);
+  color:#0d162a;border:none;padding:13px 22px;border-radius:999px;font-size:15px;font-weight:800;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;box-shadow:0 6px 18px rgba(0,0,0,.38);}
+#shareBtn:active{transform:scale(.95)}
+#toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom));transform:translateX(-50%);
+  background:rgba(4,9,18,.94);color:#ffd98f;border:1px solid var(--gold);border-radius:999px;
+  padding:12px 26px;font-size:14.5px;font-weight:700;z-index:210;pointer-events:none;
+  opacity:0;transition:opacity .25s;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+#toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="head">
+  <div class="brand">珠海生涯规划</div>
+  <h1>高考志愿 · 工具箱</h1>
+  <div class="slogan">查大学 · 配分数 · 选专业，全部免费</div>
+</div>
+<div class="tip">👇 点击下方卡片，直接使用对应工具</div>
+
+<div class="list">
+
+  <a class="tool" href="gd.html">
+    <div class="ico">🏫</div>
+    <div class="tt">
+      <b>广东大学全览 <i class="tag">全省高校</i></b>
+      <span>广东高校一页看全：办学层次、校区分布、录取门槛，给孩子找目标校不用再翻十篇文章</span>
+    </div>
+    <div class="arrow">›</div>
+  </a>
+
+  <a class="tool" href="daxue.html">
+    <div class="ico">🎯</div>
+    <div class="tt">
+      <b>输入分数，秒配大学 <i class="tag new">最实用</i></b>
+      <span>孩子这分能上哪儿？输入分数立刻匹配能上的大学，冲稳保一目了然，不浪费每一分</span>
+    </div>
+    <div class="arrow">›</div>
+  </a>
+
+  <a class="tool" href="zhuanye.html">
+    <div class="ico">📚</div>
+    <div class="tt">
+      <b>883 个专业全解码 <i class="tag">选专业必备</i></b>
+      <span>学什么课程 · 考研方向 · 就业出口 · 考公岗位，一个专业从名字查到出路</span>
+    </div>
+    <div class="arrow">›</div>
+  </a>
+
+</div>
+
+<div class="foot">
+  <b>珠海生涯规划 · 珠海志愿填报</b><br>
+  广东 2027 届高考家庭专用 · 建议收藏本页<br>
+  新工具持续更新中
+</div>
+
+<button id="shareBtn" type="button">📤 分享</button>
+<div id="toast"></div>
+
+<script>
+(function () {
+  var btn = document.getElementById('shareBtn');
+  var toast = document.getElementById('toast');
+  var SHARE_TEXT = '分享一个查大学查专业的工具，珠海家长用得上。';
+  var link = (function () {
+    try {
+      var u = new URL(location.href);
+      u.searchParams.set('utm_source', 'share');
+      return u.href;
+    } catch (e) {
+      return location.origin + location.pathname + '?utm_source=share';
+    }
+  })();
+  var payload = SHARE_TEXT + '\n\n' + link;
+  var timer = null;
+
+  function show(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(timer);
+    timer = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+  function done() { show('✓ 已复制，去微信粘贴'); }
+  function copyLink() {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(payload).then(done).catch(fallback);
+    } else { fallback(); }
+  }
+  function fallback() {
+    var ta = document.createElement('textarea');
+    ta.value = payload; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) { show('复制失败，请长按地址栏复制'); }
+    ta.remove();
+  }
+
+  btn.addEventListener('click', copyLink);
+})();
+</script>
+</body>
+</html>
