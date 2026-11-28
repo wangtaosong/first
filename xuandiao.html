@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>选调资格查询 · 广东2027 · 珠海生涯规划</title>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?828bf8487e7af50a973ffc94ef3e8b56";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<style>
+:root{--bg:#0d162a;--card:#16233f;--line:#25355c;--gold:#ffce7e;--gold2:#f5b955;--txt:#eaf1ff;--sub:#8fa3c8;--red:#ff8a7e;--green:#8fe3b0}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:linear-gradient(180deg,#0d162a 0%,#111d36 100%);color:var(--txt);
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  min-height:100vh;padding:24px 18px 96px;max-width:680px;margin:0 auto}
+.head{text-align:center;padding:6px 0 18px}
+.head .brand{font-size:14px;color:var(--sub);letter-spacing:2px}
+.head h1{font-size:30px;color:var(--gold);margin-top:10px;letter-spacing:1px}
+.head .slogan{font-size:13.5px;color:var(--sub);margin-top:10px;line-height:1.6}
+.search{display:flex;gap:10px;margin-bottom:8px}
+.search input{flex:1;background:var(--card);border:1.5px solid var(--line);border-radius:12px;
+  padding:14px 16px;color:var(--txt);font-size:17px;outline:none;min-width:0}
+.search input:focus{border-color:var(--gold)}
+.search button{background:linear-gradient(135deg,#ffd98f,#f5b955);color:#0d162a;border:none;
+  border-radius:12px;padding:0 22px;font-size:16px;font-weight:800;cursor:pointer}
+.sug{position:relative}
+#sugList{position:absolute;left:0;right:76px;top:0;background:#1d2c50;border:1px solid var(--line);
+  border-radius:12px;z-index:50;max-height:240px;overflow-y:auto;display:none;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+#sugList div{padding:12px 16px;font-size:15px;border-bottom:1px solid rgba(37,53,92,.6);cursor:pointer;line-height:1.4}
+#sugList div:last-child{border-bottom:none}
+#sugList div:hover,#sugList div.on{background:rgba(255,206,126,.12)}
+#sugList i{font-style:normal;color:var(--sub);font-size:12px;margin-left:6px}
+.hint{font-size:12.5px;color:var(--sub);margin-bottom:14px;line-height:1.6}
+#res{display:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 18px;margin-bottom:14px}
+.big{text-align:center;padding:4px 0 6px}
+.big .n{font-size:46px;font-weight:800;font-family:"DIN Alternate",Arial,sans-serif;letter-spacing:2px}
+.tI{color:var(--gold)}.tII{color:#9ec5ff}.tIII{color:var(--green)}.tN{color:var(--red)}
+.lbl{text-align:center;font-size:13px;color:var(--sub);margin-bottom:14px}
+.scope{background:rgba(255,255,255,.05);border-radius:12px;padding:14px 16px;font-size:15px;line-height:1.9;text-align:center}
+.scope b{color:var(--gold);font-size:17px}
+.discs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+.discs span{border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:999px;
+  padding:7px 14px;font-size:13.5px;color:var(--txt)}
+.discs span.hit{border-color:var(--gold);color:var(--gold);background:rgba(255,206,126,.12);font-weight:700}
+.discs span.miss{opacity:.55}
+.verdict{text-align:center;font-size:14.5px;margin-top:14px;color:var(--txt);line-height:1.8}
+.verdict b{color:var(--gold)}
+.verdict .ok{color:var(--green)}.verdict .no{color:var(--red)}
+.grid{display:flex;gap:10px;margin-top:14px}
+.grid .cell{flex:1;background:rgba(255,255,255,.04);border-radius:12px;padding:12px 8px;text-align:center}
+.grid .v{font-size:20px;font-weight:800;color:var(--txt)}
+.grid .k{font-size:11.5px;color:var(--sub);margin-top:4px;line-height:1.5}
+.conds{font-size:13px;color:var(--sub);line-height:1.9;margin-top:14px;border-top:1px dashed var(--line);padding-top:12px}
+.conds b{color:var(--txt)}
+.btnrow{display:flex;gap:10px;margin-top:14px}
+.btnrow button{flex:1;background:rgba(255,255,255,.06);border:1.5px solid var(--line);color:var(--txt);
+  border-radius:12px;padding:13px;font-size:14.5px;font-weight:700;cursor:pointer}
+.btnrow button.gold{background:linear-gradient(135deg,#ffd98f,#f5b955);color:#0d162a;border:none}
+.cands{margin-bottom:8px}
+.cands .cand{display:block;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--line);
+  color:var(--txt);border-radius:12px;padding:14px 16px;font-size:16px;margin-bottom:8px;cursor:pointer}
+.cands .cand i{font-style:normal;color:var(--sub);font-size:12.5px;margin-left:8px}
+h3.sec{font-size:17px;color:var(--gold);margin:22px 0 10px;letter-spacing:1px}
+.cls{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden}
+.cls .chead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:14px 16px;cursor:pointer}
+.cls .chead b{font-size:15.5px}
+.cls .chead i{font-style:normal;color:var(--sub);font-size:12.5px;flex-shrink:0;align-self:flex-start;margin-top:2px}
+.cls .cbody{display:none;padding:0 16px 14px;font-size:13.5px;color:var(--txt);line-height:2.0}
+.cls.open .cbody{display:block}
+.cls .cbody em{font-style:normal;color:var(--sub)}
+.cta{display:block;text-align:center;margin:20px 0 14px;background:linear-gradient(135deg,#ffd98f,#f5b955);
+  color:#0d162a;border-radius:14px;padding:15px;font-size:16px;font-weight:800;text-decoration:none}
+.foot{text-align:center;color:var(--sub);font-size:12px;margin-top:20px;line-height:1.8}
+.foot b{color:var(--gold);font-weight:700}
+.back{position:fixed;right:14px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:90;
+  background:rgba(22,35,63,.92);border:1.5px solid var(--gold);color:var(--gold);
+  padding:11px 18px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;
+  box-shadow:0 4px 14px rgba(0,0,0,.4)}
+#toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);
+  background:rgba(255,206,126,.95);color:#0d162a;font-size:14px;font-weight:700;border-radius:999px;
+  padding:11px 22px;display:none;z-index:99;white-space:nowrap}
+.err{color:var(--red);text-align:center;font-size:14px;margin:10px 0}
+</style>
+</head>
+<body>
+<div class="head">
+  <div class="brand">珠海生涯规划 · 公众号</div>
+  <h1>选调资格查询</h1>
+  <div class="slogan">孩子在哪所大学、什么专业，能报哪一级选调岗位？<br>输入院校和专业，直接对出来 · 广东2027年度</div>
+</div>
+
+<div class="search sug">
+  <input id="uni" placeholder="输入孩子读的大学，如：暨南大学" autocomplete="off">
+  <button onclick="go()">查询</button>
+  <div id="sugList"></div>
+</div>
+<div class="search">
+  <input id="maj" placeholder="输入专业（Ⅱ类高校需要），如：药学">
+</div>
+<div class="hint" id="hint">数据来源：广东省2027年度选调生公告·附件2（2026年11月27日发布，共164所高校及科研院所）</div>
+
+<div id="cands" class="cands" style="display:none"></div>
+<div id="err" class="err" style="display:none"></div>
+
+<div id="res">
+  <div class="card">
+    <div class="big"><span class="n" id="rTier">-</span></div>
+    <div class="lbl" id="rSchoolLbl"></div>
+    <div class="scope" id="rScope"></div>
+    <div id="rDiscWrap" style="display:none">
+      <div class="discs" id="rDiscs"></div>
+      <div class="verdict" id="rMajVerdict"></div>
+    </div>
+    <div class="grid">
+      <div class="cell"><div class="v">1362</div><div class="k">2027全省招录人数</div></div>
+      <div class="cell"><div class="v">1157</div><div class="k">全省职位数</div></div>
+      <div class="cell"><div class="v">861</div><div class="k">县直乡镇岗位人数</div></div>
+    </div>
+    <div class="conds" id="rConds"></div>
+    <div class="btnrow">
+      <button class="gold" onclick="copyRes()">复制结果</button>
+      <button onclick="reset()">再查一个</button>
+    </div>
+  </div>
+  <a class="cta" id="cta" href="daxue.html">还没上大学？查查分数能上哪所大学 →</a>
+</div>
+
+<h3 class="sec">164所院校全名单（按档查看）</h3>
+<div class="cls" id="cI"><div class="chead" onclick="tg('cI')"><b>Ⅰ类 · 42所 <span style="color:var(--gold)">可报全省所有岗位</span></b><i>展开 ▾</i></div>
+  <div class="cbody" id="bI"></div></div>
+<div class="cls" id="cII"><div class="chead" onclick="tg('cII')"><b>Ⅱ类 · 107所 <span style="color:#9ec5ff">括弧内学科报全省，其他限县直乡镇</span></b><i>展开 ▾</i></div>
+  <div class="cbody" id="bII"></div></div>
+<div class="cls" id="cIII"><div class="chead" onclick="tg('cIII')"><b>Ⅲ类 · 15所（均为广东院校） <span style="color:var(--green)">限报县直机关和乡镇</span></b><i>展开 ▾</i></div>
+  <div class="cbody" id="bIII"></div></div>
+
+<a class="cta" href="index.html">更多免费工具：查大学 · 查专业 · 查位次 →</a>
+
+<div class="foot">
+  <b>珠海生涯规划 · 广东志愿填报</b><br>
+  高三家长关注「选调资格」可作为志愿决策参考之一<br>
+  最终以广东省选调生公告及职位表要求为准
+</div>
+<a class="back" href="index.html">← 工具箱</a>
+<div id="toast"></div>
+
+<script>
+var DATA = {"I":["清华大学","北京大学","中国人民大学","北京航空航天大学","北京理工大学","中国农业大学","北京师范大学","中央民族大学","南开大学","天津大学","大连理工大学","吉林大学","哈尔滨工业大学","复旦大学","同济大学","上海交通大学","华东师范大学","南京大学","东南大学","浙江大学","中国科学技术大学","厦门大学","山东大学","中国海洋大学","武汉大学","华中科技大学","中南大学","中山大学","华南理工大学","四川大学","重庆大学","电子科技大学","西安交通大学","西北工业大学","兰州大学","国防科技大学","东北大学","郑州大学","湖南大学","云南大学","西北农林科技大学","新疆大学"],"II":[{"n":"北京交通大学","d":["系统科学"]},{"n":"北京工业大学","d":["土木工程"]},{"n":"北京科技大学","d":["科学技术史","材料科学与工程","冶金工程","矿业工程"]},{"n":"北京化工大学","d":["化学工程与技术"]},{"n":"北京邮电大学","d":["信息与通信工程","计算机科学与技术"]},{"n":"北京林业大学","d":["风景园林学","林学"]},{"n":"北京协和医学院","d":["生物学","生物医学工程","临床医学","公共卫生与预防医学","药学"]},{"n":"北京中医药大学","d":["中医学","中西医结合","中药学"]},{"n":"首都师范大学","d":["数学"]},{"n":"北京外国语大学","d":["外国语言文学"]},{"n":"中国传媒大学","d":["新闻传播学","戏剧与影视学"]},{"n":"中央财经大学","d":["应用经济学"]},{"n":"对外经济贸易大学","d":["应用经济学"]},{"n":"外交学院","d":["政治学"]},{"n":"中国人民公安大学","d":["公安学"]},{"n":"北京体育大学","d":["体育学"]},{"n":"中央音乐学院","d":["音乐与舞蹈学"]},{"n":"中国音乐学院","d":["音乐与舞蹈学"]},{"n":"中央美术学院","d":["美术学","设计学"]},{"n":"中央戏剧学院","d":["戏剧与影视学"]},{"n":"中国政法大学","d":["法学"]},{"n":"天津工业大学","d":["纺织科学与工程"]},{"n":"天津医科大学","d":["临床医学"]},{"n":"天津中医药大学","d":["中药学"]},{"n":"华北电力大学","d":["电气工程"]},{"n":"河北工业大学","d":["电气工程"]},{"n":"山西大学","d":["哲学","物理学"]},{"n":"太原理工大学","d":["化学工程与技术"]},{"n":"内蒙古大学","d":["生物学"]},{"n":"辽宁大学","d":["应用经济学"]},{"n":"大连海事大学","d":["交通运输工程"]},{"n":"延边大学","d":["外国语言文学"]},{"n":"东北师范大学","d":["马克思主义理论","教育学","世界史","化学","统计学","材料科学与工程"]},{"n":"哈尔滨工程大学","d":["船舶与海洋工程"]},{"n":"东北农业大学","d":["畜牧学"]},{"n":"东北林业大学","d":["林业工程","林学"]},{"n":"华东理工大学","d":["化学","材料科学与工程","化学工程与技术"]},{"n":"东华大学","d":["材料科学与工程","纺织科学与工程"]},{"n":"上海海洋大学","d":["水产"]},{"n":"上海中医药大学","d":["中医学","中药学"]},{"n":"上海外国语大学","d":["外国语言文学"]},{"n":"上海财经大学","d":["应用经济学"]},{"n":"上海体育学院","d":["体育学"]},{"n":"上海音乐学院","d":["音乐与舞蹈学"]},{"n":"上海大学","d":["机械工程"]},{"n":"苏州大学","d":["材料科学与工程"]},{"n":"南京航空航天大学","d":["力学","控制科学与工程","航空宇航科学与技术"]},{"n":"南京理工大学","d":["兵器科学与技术"]},{"n":"中国矿业大学","d":["矿业工程","安全科学与工程"]},{"n":"南京邮电大学","d":["电子科学与技术"]},{"n":"河海大学","d":["水利工程","环境科学与工程"]},{"n":"江南大学","d":["轻工技术与工程","食品科学与工程"]},{"n":"南京林业大学","d":["林业工程"]},{"n":"南京信息工程大学","d":["大气科学"]},{"n":"南京农业大学","d":["作物学","农业资源与环境"]},{"n":"南京医科大学","d":["公共卫生与预防医学"]},{"n":"南京中医药大学","d":["中药学"]},{"n":"中国药科大学","d":["中药学"]},{"n":"南京师范大学","d":["地理学"]},{"n":"中国美术学院","d":["美术学"]},{"n":"安徽大学","d":["材料科学与工程"]},{"n":"合肥工业大学","d":["管理科学与工程"]},{"n":"福州大学","d":["化学"]},{"n":"南昌大学","d":["材料科学与工程"]},{"n":"中国石油大学（华东）","d":["地质资源与地质工程","石油与天然气工程"]},{"n":"河南大学","d":["生物学"]},{"n":"中国地质大学（武汉）","d":["地质学","地质资源与地质工程"]},{"n":"武汉理工大学","d":["材料科学与工程"]},{"n":"华中农业大学","d":["生物学","园艺学","畜牧学","兽医学","农林经济管理"]},{"n":"华中师范大学","d":["政治学","教育学","中国语言文学"]},{"n":"中南财经政法大学","d":["法学"]},{"n":"湘潭大学","d":["数学"]},{"n":"湖南师范大学","d":["外国语言文学"]},{"n":"暨南大学","d":["药学"]},{"n":"华南农业大学","d":["作物学"]},{"n":"广州医科大学","d":["临床医学"]},{"n":"广州中医药大学","d":["中医学"]},{"n":"华南师范大学","d":["物理学"]},{"n":"海南大学","d":["作物学"]},{"n":"广西大学","d":["土木工程"]},{"n":"西南交通大学","d":["交通运输工程"]},{"n":"西南石油大学","d":["石油与天然气工程"]},{"n":"成都理工大学","d":["地质资源与地质工程"]},{"n":"四川农业大学","d":["作物学"]},{"n":"成都中医药大学","d":["中药学"]},{"n":"西南大学","d":["教育学","生物学"]},{"n":"西南财经大学","d":["应用经济学"]},{"n":"贵州大学","d":["植物保护"]},{"n":"西藏大学","d":["生态学"]},{"n":"西北大学","d":["考古学","地质学"]},{"n":"西安电子科技大学","d":["信息与通信工程","计算机科学与技术"]},{"n":"长安大学","d":["交通运输工程"]},{"n":"陕西师范大学","d":["中国语言文学"]},{"n":"青海大学","d":["生态学"]},{"n":"宁夏大学","d":["化学工程与技术"]},{"n":"石河子大学","d":["化学工程与技术"]},{"n":"中国矿业大学（北京）","d":["矿业工程","安全科学与工程"]},{"n":"中国石油大学（北京）","d":["地质资源与地质工程","石油与天然气工程"]},{"n":"中国地质大学（北京）","d":["地质学","地质资源与地质工程"]},{"n":"宁波大学","d":["力学"]},{"n":"南方科技大学","d":["数学"]},{"n":"上海科技大学","d":["材料科学与工程"]},{"n":"中国科学院大学","d":["化学","材料科学与工程"]},{"n":"海军军医大学","d":["基础医学"]},{"n":"空军军医大学","d":["临床医学"]},{"n":"中国社会科学院大学","d":[]},{"n":"中央党校","d":[]}],"III":["南方医科大学","广东工业大学","广东外语外贸大学","广州大学","深圳大学","汕头大学","广东医科大学","广东海洋大学","佛山大学","东莞理工学院","广东药科大学","广州美术学院","广东财经大学","中共广东省委党校","广东省社会科学院"]};
+var $ = function(id){return document.getElementById(id)};
+var ALL = [];
+DATA.I.forEach(function(n){ALL.push({n:n,c:'I',d:[]})});
+DATA.II.forEach(function(x){ALL.push({n:x.n,c:'II',d:x.d})});
+DATA.III.forEach(function(n){ALL.push({n:n,c:'III',d:[]})});
+var CUR=null, CURMAJ='';
+
+function toast(t){var el=$('toast');el.textContent=t;el.style.display='block';setTimeout(function(){el.style.display='none'},1800)}
+function norm(s){return (s||'').replace(/[\s（）()·]/g,'').toLowerCase()}
+function findUni(q){
+  q=norm(q); if(!q) return [];
+  var exact=[], contain=[];
+  ALL.forEach(function(u){
+    var un=norm(u.n);
+    var base=un.replace(/(北京|华东|武汉)$/,'');
+    if(un===q||base===q) exact.push(u);
+    else if(un.indexOf(q)>=0||q.indexOf(un)>=0||q.indexOf(base)>=0&&base.length>=4) contain.push(u);
+  });
+  return exact.concat(contain);
+}
+var sugTimer=null;
+$('uni').addEventListener('input',function(){
+  clearTimeout(sugTimer);
+  sugTimer=setTimeout(function(){
+    var q=$('uni').value.trim(); var list=$('sugList');
+    if(!q){list.style.display='none';return}
+    var hits=findUni(q).slice(0,8);
+    if(!hits.length){list.style.display='none';return}
+    var tag={I:'Ⅰ类',II:'Ⅱ类',III:'Ⅲ类'};
+    list.innerHTML=hits.map(function(u,i){
+      return '<div data-i="'+i+'">'+u.n+'<i>'+tag[u.c]+(u.d.length?' · 括弧学科'+u.d.length+'个':'')+'</i></div>';
+    }).join('');
+    list.style.display='block';
+    Array.prototype.forEach.call(list.querySelectorAll('div'),function(el){
+      el.onclick=function(){ $('uni').value=hits[+el.dataset.i].n; list.style.display='none'; go(); };
+    });
+  },120);
+});
+document.addEventListener('click',function(e){ if(!e.target.closest('.sug')) $('sugList').style.display='none'; });
+
+function go(){
+  var q=$('uni').value.trim();
+  var maj=$('maj').value.trim();
+  $('err').style.display='none';
+  if(!q){ $('err').textContent='请先输入大学名称'; $('err').style.display='block'; return; }
+  var hits=findUni(q);
+  if(!hits.length){
+    $('res').style.display='none';
+    $('err').innerHTML='「'+q+'」不在2027年广东选调的164所院校名单内。<br>专升本、定向/委培、网络学院、成人教育、独立学院毕业生均不列入选调范围。';
+    $('err').style.display='block';
+    if(window._hmt)_hmt.push(['_trackEvent','xtdy','query','nomatch']);
+    return;
+  }
+  if(hits.length>1 && norm(hits[0].n)!==norm(q)){
+    $('res').style.display='none'; $('err').style.display='none';
+    var c=$('cands'); c.style.display='block';
+    var tag={I:'Ⅰ类·可报全省',II:'Ⅱ类·看专业',III:'Ⅲ类·县直乡镇'};
+    c.innerHTML='<div class="hint">找到多所相近院校，请点选：</div>'+hits.slice(0,6).map(function(u){
+      return '<button class="cand" onclick="pick(\''+u.n+'\')">'+u.n+'<i>'+tag[u.c]+'</i></button>';
+    }).join('');
+    return;
+  }
+  show(hits[0], maj);
+}
+function pick(n){ $('cands').style.display='none'; $('uni').value=n; show(findUni(n)[0], $('maj').value.trim()); }
+
+function show(u, maj){
+  CUR=u; CURMAJ=maj||'';
+  if(window._hmt)_hmt.push(['_trackEvent','xtdy','query',u.c]);
+  $('cands').style.display='none';
+  var tagEl=$('rTier');
+  var scope='', conds='';
+  tagEl.className='n ';
+  $('rDiscWrap').style.display='none';
+  if(u.c==='I'){ tagEl.className='n tI'; tagEl.textContent='Ⅰ类高校'; scope='<b>可报考全省所有选调岗位</b><br><em style="font-style:normal;color:var(--sub);font-size:12.5px">省直机关 · 市级机关 · 县直机关 · 乡镇街道，全部可报</em>'; }
+  else if(u.c==='II'){
+    tagEl.className='n tII'; tagEl.textContent='Ⅱ类高校';
+    var dw=$('rDiscWrap'); dw.style.display='block';
+    var dl=$('rDiscs'); dl.innerHTML='';
+    var mn=norm(maj), hit=-1;
+    if(u.d.length){
+      u.d.forEach(function(d,i){
+        var dn=norm(d);
+        var isHit = mn && (dn.indexOf(mn)>=0 || mn.indexOf(dn)>=0);
+        if(isHit) hit=i;
+        dl.innerHTML+='<span class="'+(isHit?'hit':'miss')+'">'+d+'</span>';
+      });
+    }
+    var mv=$('rMajVerdict');
+    if(!u.d.length){
+      dl.innerHTML='<em style="font-style:normal;color:var(--sub);font-size:12.5px">该校无括弧限定学科</em>';
+      mv.innerHTML='Ⅱ类高校毕业生可报<b>县直机关和乡镇街道</b>岗位<br><span class="no">全省不限层级的岗位仅限括弧内学科毕业生，该校无括弧学科</span>';
+    } else if(!maj){
+      mv.innerHTML='请补充输入孩子的专业，判断是否在括弧学科内<br><span style="color:var(--sub);font-size:12.5px">括弧内学科可报全省所有岗位，其他学科限报县直机关和乡镇</span>';
+    } else if(hit>=0){
+      mv.innerHTML='<span class="ok">✔ 专业「'+maj+'」属于括弧内指定学科</span><br><b>可报考全省所有选调岗位</b>（省直 · 市级 · 县直 · 乡镇）';
+    } else {
+      mv.innerHTML='<span class="no">✘ 专业「'+maj+'」不在括弧学科内</span><br><b>限报县直机关和乡镇街道岗位</b>（全省不限层级岗位需括弧内学科）';
+    }
+    scope='<b>可报「县直机关 + 乡镇街道」岗位</b><br><em style="font-style:normal;color:var(--sub);font-size:12.5px">若专业属于下方括弧内学科，可报全省所有岗位</em>';
+  } else {
+    tagEl.className='n tIII'; tagEl.textContent='Ⅲ类高校';
+    scope='<b>可报考「县直机关 + 乡镇街道」岗位</b><br><em style="font-style:normal;color:var(--sub);font-size:12.5px">省直和市级机关岗位不对Ⅲ类高校毕业生开放</em>';
+  }
+  $('rScope').innerHTML=scope;
+  $('rSchoolLbl').textContent=u.n+(u.d.length&&u.c==='II'?' · 括弧学科：'+u.d.join('、'):'');
+  conds='<b>报名 11月30日-12月4日 · 笔试 12月27日</b><br>'+
+    '还需满足其一：中共党员 / 学生干部经历 / 校级以上奖学金或表彰 / 参军入伍经历';
+  if(u.c!=='I') conds+='<br>本科毕业生要求近3学年成绩在专业或班级<b>排名前50%</b>（教务处开证明）';
+  conds+='<br><span style="font-size:12px;opacity:.8">具体职位另有专业要求（公告附件6专业目录），以职位表为准</span>';
+  $('rConds').innerHTML=conds;
+  $('res').style.display='block';
+  $('res').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function copyRes(){
+  if(!CUR) return;
+  var tag={I:'Ⅰ类（可报全省所有岗位）',II:'Ⅱ类',III:'Ⅲ类（限县直机关和乡镇）'};
+  var t=tag[CUR.c], maj=CURMAJ?'，专业'+CURMAJ:'';
+  var extra='';
+  if(CUR.c==='II'&&CUR.d.length&&CURMAJ){
+    var mn=norm(CURMAJ), hit=CUR.d.some(function(d){var dn=norm(d);return dn.indexOf(mn)>=0||mn.indexOf(dn)>=0});
+    extra=hit?'，专业在括弧学科内，可报全省所有岗位':'，专业不在括弧学科内，限报县直机关和乡镇';
+  }
+  var txt='【广东2027选调资格】'+CUR.n+maj+'：属'+t+extra+'。报名11.30-12.4，笔试12.27。查询工具：'+location.href;
+  (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){toast('✓ 已复制，去微信粘贴')}).catch(function(){
+    var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');toast('✓ 已复制，去微信粘贴')}catch(e){toast('复制失败，请手动截图')}
+    document.body.removeChild(ta);
+  });
+  if(window._hmt)_hmt.push(['_trackEvent','xtdy','copy']);
+}
+function reset(){ $('res').style.display='none'; $('uni').value=''; $('maj').value=''; $('uni').focus(); window.scrollTo({top:0,behavior:'smooth'}) }
+function tg(id){ $(id).classList.toggle('open') }
+
+/* 名单渲染 */
+$('bI').innerHTML=DATA.I.join('、');
+$('bII').innerHTML=DATA.II.map(function(x){
+  return '<b>'+x.n+'</b>'+(x.d.length?'<em>（'+x.d.join('、')+'）</em>':'');
+}).join('、');
+$('bIII').innerHTML=DATA.III.join('、');
+</script>
+</body>
+</html>
